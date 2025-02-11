@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -22,6 +24,12 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<String> getInstanceInfo() throws UnknownHostException {
+        String info = "This request was handled by instance: " + InetAddress.getLocalHost().getHostName();
+        return ResponseEntity.ok(info) ;
     }
 
     @PostMapping

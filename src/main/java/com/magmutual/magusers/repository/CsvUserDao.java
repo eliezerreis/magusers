@@ -4,7 +4,6 @@ import com.magmutual.magusers.entity.User;
 import com.magmutual.magusers.exceptions.DatabaseFormatException;
 import com.magmutual.magusers.exceptions.DatabaseIOException;
 import com.magmutual.magusers.file.CsvFileManager;
-import com.magmutual.magusers.mapper.UserMapper;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +19,11 @@ import java.util.stream.Collectors;
 @Repository
 public class CsvUserDao implements UserDAO {
 
-    private final UserMapper userMapper;
     CsvFileManager entityManager;
 
     @Autowired
-    public CsvUserDao(CsvFileManager entityManager, UserMapper userMapper) {
+    public CsvUserDao(CsvFileManager entityManager) {
         this.entityManager = entityManager;
-        this.userMapper = userMapper;
     }
 
     @Override

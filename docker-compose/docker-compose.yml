@@ -1,0 +1,27 @@
+networks:
+  magnetwork:
+    driver: bridge
+
+services:
+  magusers:
+    image: "mag/magusers:latest"
+    networks:
+      - magnetwork
+    deploy:
+      replicas: 3
+    ports:
+      - "8081-8090:8080"
+    volumes:
+      - ./database:/mnt
+    environment:
+      CSV_FILE_PATH: /mnt/users.csv
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    networks:
+      - magnetwork
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
