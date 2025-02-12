@@ -56,10 +56,16 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<UserDTO>> searchUsers(@RequestParam(required = true) LocalDate startDate,
+    @GetMapping("/search/by-date")
+    public ResponseEntity<List<UserDTO>> searchUserByDate(@RequestParam(required = true) LocalDate startDate,
                                                      @RequestParam(required = true) LocalDate endDate) {
         List<UserDTO> users = userService.findByCreatedDateBetween(startDate, endDate);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/search/by-profession")
+    public ResponseEntity<List<UserDTO>> searchUsersByProfession(@RequestParam(required = true) String profession) {
+        List<UserDTO> users = userService.findByProfession(profession);
         return ResponseEntity.ok(users);
     }
 

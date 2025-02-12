@@ -37,8 +37,8 @@ The API is exposed ath `localhost:8080/swagger-ui/index.html`. Additionally, Iâ€
 ## Additional Features Implemented:
 
 - **Asynchronous Event Handling**:
-    - When a new user is created, a message is sent to a RabbitMQ topic. Other services in the system can subscribe to this message for real-time processing. This showcases inter-service communication using event-driven architecture.
-    - Technologies used: Spring Boot, RabbitMQ, Spring Cloud, Spring Functions and AOP.
+    - When a new user is created, a message is sent to a RabbitMQ topic. Other services in the system can subscribe to this message for real-time processing. This showcases inter-service communication using event-driven architecture. If you are running the application using the container approach, you can visit `localhost:15672` user: guest, pass: guest and check the queue messages right after a new user is created.
+    - Technologies used: Spring Boot, RabbitMQ, Spring Cloud Streams, and AOP.
 
 - **Data Validation**:
     - The obejcts received by the endpoints, mainly the ones for creation or deletion, uses Spring Boot validation annotations to ensure correct data formats.

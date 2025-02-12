@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
         /*
          * This method is tricky. I have some code duplications here because is needed
-         * the full list of user in order the overwrite the whole file to update one entry.
+         * the full list of user in order the overwrite the whole file to update one entry. ;(
          */
         List<User> users = userDAO.findAll();
 
@@ -102,5 +102,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> findByCreatedDateBetween(LocalDate startDate, LocalDate end) {
         return mapper.mapToList(userDAO.findByDateCreatedBetween(startDate, end));
+    }
+
+
+    @Override
+    public List<UserDTO> findByProfession(String profession) {
+        return mapper.mapToList(userDAO.findByProfession(profession));
     }
 }

@@ -63,7 +63,6 @@ public class CsvUserDao implements UserDAO {
         saveOrUpdateAll(users);
     }
 
-
     @Override
     public void delete(User user) {
         List<User> users = findAll();
@@ -72,13 +71,22 @@ public class CsvUserDao implements UserDAO {
         saveOrUpdateAll(users);
     }
 
-
     @Override
     public List<User> findByDateCreatedBetween(LocalDate startDate, LocalDate endDate) {
         List<User> users = findAll();
 
         return users.stream()
             .filter(user -> !user.getDateCreated().isBefore(startDate) && !user.getDateCreated().isAfter(endDate))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findByProfession(String profession) {
+        List<User> users = findAll();
+
+        //To be more flexible this method ignore case and search anything that starts with the string
+        return users.stream()
+            .filter(user -> user.getProfession().trim().toLowerCase().startsWith(profession.trim().toLowerCase()))
             .collect(Collectors.toList());
     }
 

@@ -15,5 +15,7 @@ public interface UserDAO extends GenericDAO<User> {
 
     List<User> findByDateCreatedBetween(LocalDate startDate, LocalDate endDate);
 
+    List<User> findByProfession(String profession);
+
     Optional<Integer> maxId();
 }

@@ -130,7 +130,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/v1/api/users/search?startDate=2025-02-01&endDate=2025-02-28",
+					"raw": "localhost:8080/v1/api/users/search/by-date?startDate=2025-02-01&endDate=2025-02-28",
 					"host": [
 						"localhost"
 					],
@@ -139,7 +139,8 @@
 						"v1",
 						"api",
 						"users",
-						"search"
+						"search",
+						"by-date"
 					],
 					"query": [
 						{
@@ -161,7 +162,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/v1/api/users/search?startDate=2025-02-01&endDate=2025-02-28",
+					"raw": "localhost:8080/v1/api/users/search/by-profession?profession=doctor",
 					"host": [
 						"localhost"
 					],
@@ -170,16 +171,13 @@
 						"v1",
 						"api",
 						"users",
-						"search"
+						"search",
+						"by-profession"
 					],
 					"query": [
 						{
-							"key": "startDate",
-							"value": "2025-02-01"
-						},
-						{
-							"key": "endDate",
-							"value": "2025-02-28"
+							"key": "profession",
+							"value": "doctor"
 						}
 					]
 				}
@@ -190,7 +188,20 @@
 			"name": "Info",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/v1/api/users/info",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"api",
+						"users",
+						"info"
+					]
+				}
 			},
 			"response": []
 		},

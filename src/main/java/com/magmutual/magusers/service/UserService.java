@@ -15,4 +15,7 @@ public interface UserService {
     void deleteUser(int id);
 
     List<UserDTO> findByCreatedDateBetween(LocalDate startDate, LocalDate end);
+
+    List<UserDTO> findByProfession(String profession);
+
 }
