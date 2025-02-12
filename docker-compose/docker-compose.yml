@@ -7,14 +7,15 @@ services:
     image: "mag/magusers:latest"
     networks:
       - magnetwork
+    ports:
+      - "8080"
     deploy:
       replicas: 3
-    ports:
-      - "8081-8090:8080"
     volumes:
       - ./database:/mnt
     environment:
       CSV_FILE_PATH: /mnt/users.csv
+      SPRING_PROFILES_ACTIVE: dev
 
   nginx:
     image: nginx:alpine
@@ -25,3 +26,12 @@ services:
       - "8080:80"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
+
+  rabbit:
+    image: rabbitmq:4.0-management
+    hostname: rabbitmq
+    networks:
+      - magnetwork
+    ports:
+      - "5672:5672"
+      - "15672:15672"

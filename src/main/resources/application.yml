@@ -8,6 +8,11 @@ server:
 spring:
   application:
     name: MagUsers
+  profiles:
+    active: dev
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration
 
 management:
   endpoints:

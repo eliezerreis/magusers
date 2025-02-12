@@ -1,0 +1,23 @@
+spring:
+
+  cloud:
+    stream:
+      bindings:
+        new-user:
+          destination: users-events
+          producer:
+            required-groups:
+              - new-user
+      rabbit:
+        bindings:
+          new-user:
+            producer:
+              routing-key: users-events.new-user
+              binding-routing-key: users-events.new-user
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 20s
