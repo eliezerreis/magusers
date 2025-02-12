@@ -32,13 +32,13 @@ The service exposes several REST API endpoints that meet the specified requireme
     - `PUT localhost:8080/v1/api/users` – Update an existing user.
     - `DELETE localhost:8080/v1/api/users/{id}` – Delete an existing user.
 
-Additionally, I’ve provided a **postman_collection.json** to easily test and interact with all the endpoints.
+The API is exposed ath `localhost:8080/swagger-ui/index.html`. Additionally, I’ve provided a **postman_collection.json** to easily test and interact with all the endpoints.
 
 ## Additional Features Implemented:
 
 - **Asynchronous Event Handling**:
     - When a new user is created, a message is sent to a RabbitMQ topic. Other services in the system can subscribe to this message for real-time processing. This showcases inter-service communication using event-driven architecture.
-    - Technologies used: Spring Boot, RabbitMQ, Spring Cloud.
+    - Technologies used: Spring Boot, RabbitMQ, Spring Cloud, Spring Functions and AOP.
 
 - **Data Validation**:
     - The obejcts received by the endpoints, mainly the ones for creation or deletion, uses Spring Boot validation annotations to ensure correct data formats.
