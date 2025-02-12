@@ -13,9 +13,16 @@ services:
       replicas: 3
     volumes:
       - ./database:/mnt
+    healthcheck:
+      test: "curl --fail --silent localhost:8080/actuator/health | grep UP || exit 1"
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
     environment:
       CSV_FILE_PATH: /mnt/users.csv
       SPRING_PROFILES_ACTIVE: dev
+      SPRING_RABBITMQ_HOST: "rabbitmq"
 
   nginx:
     image: nginx:alpine

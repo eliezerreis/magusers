@@ -9,7 +9,7 @@ spring:
   application:
     name: MagUsers
   profiles:
-    active: dev
+    active: default
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration

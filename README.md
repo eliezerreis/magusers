@@ -20,11 +20,11 @@ The service exposes several REST API endpoints that meet the specified requireme
     - This endpoint fetches a specific user by their unique ID, including all associated information.
 
 2. **Search Users by Date Range**:
-    - **Endpoint**: `GET localhost:8080/v1/api/users/search?startDate=2025-02-01&endDate=2025-02-28`
+    - **Endpoint**: `GET localhost:8080/v1/api/users/search/by-date?startDate=2025-02-01&endDate=2025-02-28`
     - This endpoint returns a list of users created between a specified date range.
 
 3. **Search Users by Profession**:
-    - **Endpoint**: `GET localhost:8080/v1/api/users/search?profession=doctor`
+    - **Endpoint**: `GET localhost:8080/v1/api/users/search/by-profession?profession=doctor`
     - This returns a list of users with a specific profession.
 
 4. **Custom Endpoint for CRUD Operations**:
@@ -41,7 +41,7 @@ The API is exposed ath `localhost:8080/swagger-ui/index.html`. Additionally, Iâ€
     - Technologies used: Spring Boot, RabbitMQ, Spring Cloud Streams, and AOP.
 
 - **Data Validation**:
-    - The obejcts received by the endpoints, mainly the ones for creation or deletion, uses Spring Boot validation annotations to ensure correct data formats.
+    - The objects received by the endpoints, mainly the ones for creation or update, uses Spring Boot validation annotations to ensure correct data formats.
 
 - **Data Layer Separation**:
     - The code is organized into different layers: Controller, Service, and DAO layers. This improves maintainability by separating the concerns.
@@ -52,7 +52,7 @@ The API is exposed ath `localhost:8080/swagger-ui/index.html`. Additionally, Iâ€
 ## Suggested Improvements:
 
 - **Environment Configuration**:
-    - The application currently runs in the default profile, but it would be beneficial to have separate profiles for development, testing, and production to ensure proper configuration management across different environments.
+    - The application currently runs in the with basic default and dev profile, but it would be beneficial to have separate profiles for testing and production to ensure proper configuration management across different environments.
 
 - **CSV as a Data Source**:
     - While using a CSV file as a data source is a temporary solution for this project (mainly because of the time of challenging), itâ€™s not ideal for a production system. The lack of support for transactions (ACID properties) in CSVs could lead to data consistency issues. A relational database (e.g., PostgreSQL) or NoSQL database (e.g., MongoDB) would be more appropriate for persistent data.
@@ -71,20 +71,22 @@ The API is exposed ath `localhost:8080/swagger-ui/index.html`. Additionally, Iâ€
 
 To run the service using Docker Compose, follow these steps:
 
-1. **Install Docker Desktop** (Download link).
+1. **Install Docker Desktop** https://docs.docker.com/desktop/
 2. Ensure **Java JDK 17 or higher** is installed.
 3. **Clone the project** and navigate to the project folder.
 4. Build the Docker image by running `./build-docker-image.sh`.
-5. Go to the `docker-compose` folder and run `docker compose up -d` to start:
+5. Go to the `cd docker-compose` folder and run `docker compose up -d` to start:
     - Three instances of the microservice.
     - One instance of NGINX to simulate an API Gateway.
     - One instance of RabbitMQ
-6. You can scale the service up or down with Docker Compose using `docker compose up --scale magusers=5` or `docker compose up --scale magusers=5`.
+6. You can scale the service up or down with Docker Compose using `docker compose up --scale magusers=5 -d` or `docker compose up --scale magusers=1 -d`.
+   1. After scaling services up and down you must reload nginx or wait for the heathchecker identify that the servers are on or off. Nginx dont have a service discovery or advance features to recognized changes fast.
+   2. After restart, you can check the url `localhost:8080/v1/api/users/info`. This is a custom endpoint to show which server are you connected with.
+   3. The heathcheck url is `localhost:8080/actuator/health`.
 7. To stop the services, run `docker compose down`.
 
 ### Optional Standalone Mode:
 If you prefer to run the service without Docker, you can run it in standalone mode using your favorite IDE. In this case, you don't need RabbitMQ or the load balancer, but the same endpoints and Postman collection file will still work. You can also use the command `mvn spring-boot:run` to start the service locally.
-
 
 ## Answers to the Questions:
 
